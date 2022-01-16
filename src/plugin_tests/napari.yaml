@@ -1,0 +1,28 @@
+name: plugin-tests
+display_name: Plugin Tests
+contributions:
+  commands:
+    - id: plugin-tests.get_reader
+      python_name: plugin_tests._reader:napari_get_reader
+      title: Open data with Plugin Tests 
+    - id: plugin-tests.make_qwidget
+      python_name: plugin_tests._widget:ExampleQWidget
+      title: Make example QWidget
+    - id: plugin-tests.make_magic_widget
+      python_name: plugin_tests._widget:example_magic_widget
+      title: Make example magic widget
+    - id: plugin-tests.make_func_widget
+      python_name: plugin_tests._widget:example_function_widget
+      title: Make example function widget 
+  readers:
+    - command: plugin-tests.get_reader
+      accepts_directories: false
+      filename_patterns: ['*.npy']  
+  widgets:
+    - command: plugin-tests.make_qwidget
+      display_name: Example QWidget
+    - command: plugin-tests.make_magic_widget
+      display_name: Example Magic Widget
+    - command: plugin-tests.make_func_widget
+      autogenerate: true
+      display_name: Example Function Widget 
