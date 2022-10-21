@@ -22,29 +22,6 @@ from skimage.filters import (
     threshold_yen,
 )
 from skimage.measure import label
-
-# ideas:
-#  - some thresholds take a histogram instead of just the image (isodata, otsu, yen)
-#  - add a checkbox that says "use histogram" or something, and when it's ticked, we pass histogram
-#     not image to the respective thresholds
-#  - but why, what can we do with that histogram first?
-#       - maybe checkbox is actually "use 90th percentile" and then instead of full hist we only pass middle 90% of values
-#       - how do we select "middle 90% of values"
-#               - lower = find 0.05 percentile
-#               - upper = find 0.95 percentile
-#               - lower, upper = tuple(np.quantile([0.05, 0.95]))
-#               - histogram of new values np.histogram(im, range=(lower, upper))
-
-# tests:
-# test that checkbox is enabled/disabled for the right thresholds
-# what small error should we introduce and how can we find it?
-# test that image of all same value doesn't break (is this useful...? kinda I guess- we still don't wanna just error)
-# edge cases and so forth
-# we can also show parameterizing tests that way
-# test that layer is added to viewer on result
-# do we want a magic factory style one too?
-
-
 class Threshold(Enum):
     # plain functions can't be Enum members, so we wrap these in partial
     # this doesn't change their behaviour
@@ -59,10 +36,7 @@ HIST_THRESHOLDS = [Threshold.isodata.name, Threshold.otsu.name, Threshold.yen.na
 
 
 class ThresholdSegmentationWidget(QWidget):
-    # your QWidget.__init__ can optionally request the napari viewer instance
-    # in one of two ways:
-    # 1. use a parameter called `napari_viewer`, as done here
-    # 2. use a type annotation of 'napari.viewer.Viewer' for any parameter
+
     def __init__(self, napari_viewer):
         super().__init__()
         self.viewer = napari_viewer
